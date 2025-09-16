@@ -18,3 +18,13 @@ export const calculateCurrentWeek = (daysLeft) => {
   const currentWeek = Math.floor(daysPassed / 7) + 1;
   return currentWeek;
 };
+
+export const calculateDemoDaysLeft = () => {
+  const today = new Date();
+  const result = new Date(today);
+  result.setDate(result.getDate() + 36 * 7);
+  const year = result.getFullYear();
+  const month = String(result.getMonth() + 1).padStart(2, '0');
+  const day = String(result.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};

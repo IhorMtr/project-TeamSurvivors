@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import { BabyStatesCollection } from '../db/models/babyStates.js';
 import {
   calcDaysLeftToBirth,
@@ -10,8 +11,11 @@ export const getMyDay = async (estimateBirthDate) => {
   const babyState = await BabyStatesCollection.findOne({
     weekNumber: currentWeek,
   });
-  return {
-    daysLeftToBirth,
-    ...babyState,
-  };
+  if (babyState) {
+    return {
+      daysLeftToBirth,
+      ...babyState._doc,
+    };
+  }
+  throw createHttpError(404, 'Info not found, enter valid estimate date');
 };
