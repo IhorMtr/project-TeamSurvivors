@@ -40,4 +40,4 @@ const momStatesSchema = new Schema(
   { timestamps: false },
 );
 
-export const MomStatesModel = model('mom_states', momStatesSchema);
+export const MomStatesCollection = model('mom_states', momStatesSchema);
