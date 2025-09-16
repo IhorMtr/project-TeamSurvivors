@@ -1,0 +1,44 @@
+{
+  "name": "project-teamsurvivors",
+  "version": "1.0.0",
+  "description": "Fullstack team project",
+  "homepage": "https://github.com/IhorMtr/project-TeamSurvivors#readme",
+  "bugs": {
+    "url": "https://github.com/IhorMtr/project-TeamSurvivors/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IhorMtr/project-TeamSurvivors.git"
+  },
+  "license": "MIT",
+  "author": "Ihor Motornyi <igormotornyyy@gmail.com>",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "build": "npm run build-docs",
+    "build-docs": "redocly bundle docs/openapi.yaml --ext json -o docs/swagger.json",
+    "preview-docs": "redocly preview"
+  },
+  "devDependencies": {
+    "@redocly/cli": "^2.0.8",
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "http-errors": "^2.0.0",
+    "joi": "^18.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.1",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.6",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
