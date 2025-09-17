@@ -1,0 +1,876 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Lehlehka App",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "Lehlehka App"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    },
+    {
+      "url": "https://project-teamsurvivors.onrender.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Weeks",
+      "description": "Getting baby and mom info by date"
+    }
+  ],
+  "paths": {
+    "/api/weeks/my-day/{estimateBirthDate}": {
+      "get": {
+        "tags": [
+          "Weeks"
+        ],
+        "summary": "Get my day by estimate birth date",
+        "operationId": "getMyDay",
+        "description": "Get my day by estimate birth date",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "estimateBirthDate",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2026-01-15"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get my day by estimate birth date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found my day info!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/my-day"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "UnauthorizedError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": [
+                            "Access token expired",
+                            "User not found",
+                            "Unauthorized",
+                            "Session not found",
+                            "Session token expired",
+                            "Token is expired or invalid"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "NotFoundError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": [
+                            "Info not found, enter valid estimate date"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "InternalServerError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Something went wrong"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/weeks/my-day-demo": {
+      "get": {
+        "tags": [
+          "Weeks"
+        ],
+        "summary": "Get my day demo",
+        "operationId": "getMyDayDemo",
+        "description": "Get my day demo",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Get my day demo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found my day info!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/my-day"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid query/state)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "BadRequest"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Invalid demo parameters"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "InternalServerError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Something went wrong"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/weeks/baby-state/{currentWeek}": {
+      "get": {
+        "tags": [
+          "Weeks"
+        ],
+        "summary": "Get baby state by week",
+        "operationId": "getBabyState",
+        "description": "Get baby state by week",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "currentWeek",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get baby state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found baby state!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/baby-state"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "UnauthorizedError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": [
+                            "Access token expired",
+                            "User not found",
+                            "Unauthorized",
+                            "Session not found",
+                            "Session token expired",
+                            "Token is expired or invalid"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "NotFoundError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": [
+                            "Info not found, please set a valid current pregnancy week"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "InternalServerError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Something went wrong"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/weeks/mom-state/{currentWeek}": {
+      "get": {
+        "tags": [
+          "Weeks"
+        ],
+        "summary": "Get mom state by week",
+        "operationId": "getMomState",
+        "description": "Get mom state by week",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "currentWeek",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get mom state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found mom state!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/mom-state"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "UnauthorizedError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": [
+                            "Access token expired",
+                            "User not found",
+                            "Unauthorized",
+                            "Session not found",
+                            "Session token expired",
+                            "Token is expired or invalid"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "NotFoundError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": [
+                            "Info not found, please set a valid current pregnancy week"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "InternalServerError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Something went wrong"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "my-day": {
+        "type": "object",
+        "required": [
+          "_id",
+          "daysLeftToBirth",
+          "weekNumber",
+          "babySize",
+          "babyWeight",
+          "image",
+          "babyActivity",
+          "babyDevelopment",
+          "momDailyTips"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Contact's id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "daysLeftToBirth": {
+            "description": "Days left to birth date",
+            "type": "integer",
+            "example": 94
+          },
+          "weekNumber": {
+            "description": "Week number",
+            "type": "integer",
+            "example": 29
+          },
+          "babySize": {
+            "description": "Baby size",
+            "type": "number",
+            "example": 38.6
+          },
+          "babyWeight": {
+            "description": "Baby weight",
+            "type": "number",
+            "example": 1150
+          },
+          "image": {
+            "description": "Image of baby analogy",
+            "type": "string",
+            "example": "https://ftp.goit.study/img/lehlehka/6895ce04a5c677999ed2af41"
+          },
+          "babyActivity": {
+            "description": "Describe baby's activity",
+            "type": "string",
+            "example": "Місця в матці стає менше, тому рухи дитини стають менш розмашистими, але більш сильними. Ви можете відчути п'яту або лікоть, що випирає."
+          },
+          "babyDevelopment": {
+            "description": "Describe baby developement",
+            "type": "string",
+            "example": "Кістковий мозок повністю взяв на себе функцію кровотворення. Голова дитини росте, щоб вмістити мозок, що стрімко розвивається. М'язи та легені продовжують дозрівати. Наднирники виробляють гормони, які стимулюють вироблення молока у матері."
+          },
+          "momDailyTips": {
+            "description": "Mother daily tips",
+            "type": [
+              "string"
+            ],
+            "example": [
+              "Слідкуйте за рухами дитини. Якщо ви помітили, що їхня кількість або інтенсивність значно зменшилася, зверніться до лікаря.",
+              "Геморой та закрепи — часті супутники третього триместру. Пийте воду, їжте клітковину, рухайтеся.",
+              "Потреба в кальції зараз максимальна, оскільки кістки дитини активно зміцнюються.",
+              "Подумайте, чи хочете ви найняти доулу для підтримки в пологах.",
+              "Перевірте, чи зібрана ваша сумка в пологовий будинок. Покладіть речі і для партнера, якщо він буде з вами.",
+              "Поговоріть зі старшими дітьми про те, як вони можуть допомагати вам з немовлям.",
+              "Дозвольте собі бути вразливою. Діліться своїми страхами з близькими людьми."
+            ]
+          }
+        }
+      },
+      "baby-state": {
+        "type": "object",
+        "required": [
+          "_id",
+          "weekNumber",
+          "analogy",
+          "image",
+          "babyDevelopment",
+          "interestingFact"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Document id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "weekNumber": {
+            "description": "Week number",
+            "type": "integer",
+            "example": 29
+          },
+          "analogy": {
+            "description": "Analogy of baby at current week",
+            "type": "string",
+            "example": "Яблуко"
+          },
+          "image": {
+            "description": "Image of baby analogy",
+            "type": "string",
+            "example": "https://ftp.goit.study/img/lehlehka/6895ce04a5c677999ed2af41"
+          },
+          "babyDevelopment": {
+            "description": "Describe baby developement",
+            "type": "string",
+            "example": "Кістковий мозок повністю взяв на себе функцію кровотворення. Голова дитини росте, щоб вмістити мозок, що стрімко розвивається. М'язи та легені продовжують дозрівати. Наднирники виробляють гормони, які стимулюють вироблення молока у матері."
+          },
+          "interestingFact": {
+            "description": "Interesting fact about baby",
+            "type": "string",
+            "example": "Дитина вже чує звуки: ваше серцебиття, бурчання в животі, ваш голос. Розмовляйте з нею!"
+          }
+        }
+      },
+      "mom-state": {
+        "type": "object",
+        "required": [
+          "_id",
+          "weekNumber",
+          "feelings",
+          "comfortTips"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Document id",
+            "type": "string",
+            "example": "6895cb58a5c677999ed2aefe"
+          },
+          "weekNumber": {
+            "description": "Week number",
+            "type": "integer",
+            "example": 6
+          },
+          "feelings": {
+            "description": "Mother's feelings and sensations",
+            "type": "object",
+            "required": [
+              "states",
+              "sensationDescr"
+            ],
+            "properties": {
+              "_id": {
+                "description": "Feelings subdocument id",
+                "type": "string",
+                "example": "68ca89a0048001853eeaba31"
+              },
+              "states": {
+                "description": "Array of feelings/symptoms at current week",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "Сильна втома",
+                  "Загострення нюху",
+                  "Харчові дивацтва"
+                ]
+              },
+              "sensationDescr": {
+                "description": "Description of sensations",
+                "type": "string",
+                "example": "Втома може бути всеохоплюючою. Аромат кави, який ви обожнювали, тепер може викликати огиду..."
+              }
+            }
+          },
+          "comfortTips": {
+            "description": "List of comfort tips",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "category",
+                "tip"
+              ],
+              "properties": {
+                "_id": {
+                  "description": "Comfort tip id",
+                  "type": "string",
+                  "example": "68ca89a0048001853eeaba32"
+                },
+                "category": {
+                  "description": "Category of tip",
+                  "type": "string",
+                  "example": "Харчування"
+                },
+                "tip": {
+                  "description": "Practical advice for comfort",
+                  "type": "string",
+                  "example": "Прислухайтеся до свого організму. Якщо вам хочеться чогось конкретного (і це безпечно), дозвольте собі це."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

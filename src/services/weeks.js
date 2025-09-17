@@ -12,17 +12,26 @@ export const getMyDay = async (estimateBirthDate) => {
   const babyState = await BabyStatesCollection.findOne({
     weekNumber: currentWeek,
   });
-  if (babyState) {
-    return {
-      daysLeftToBirth,
-      ...babyState._doc,
-    };
+  if (!babyState) {
+    throw createHttpError(404, 'Info not found, enter valid estimate date');
   }
-  throw createHttpError(404, 'Info not found, enter valid estimate date');
+  return {
+    _id: babyState._id,
+    daysLeftToBirth,
+    weekNumber: babyState.weekNumber,
+    babySize: babyState.babySize,
+    babyWeight: babyState.babyWeight,
+    image: babyState.image,
+    babyActivity: babyState.babyActivity,
+    babyDevelopment: babyState.babyDevelopment,
+    momDailyTips: babyState.momDailyTips,
+  };
 };
 
 export const getMomState = async (currentWeek) => {
-  const momState = MomStatesCollection.findOne({ weekNumber: currentWeek });
+  const momState = await MomStatesCollection.findOne({
+    weekNumber: currentWeek,
+  });
   if (!momState) {
     throw createHttpError(
       404,
@@ -33,12 +42,21 @@ export const getMomState = async (currentWeek) => {
 };
 
 export const getBabyState = async (currentWeek) => {
-  const babyState = BabyStatesCollection.findOne({ weekNumber: currentWeek });
+  const babyState = await BabyStatesCollection.findOne({
+    weekNumber: currentWeek,
+  });
   if (!babyState) {
     throw createHttpError(
       404,
       'Info not found, please set a valid current pregnancy week',
     );
   }
-  return babyState;
+  return {
+    _id: babyState._id,
+    weekNumber: babyState.weekNumber,
+    analogy: babyState.analogy,
+    image: babyState.image,
+    babyDevelopment: babyState.babyDevelopment,
+    interestingFact: babyState.interestingFact,
+  };
 };

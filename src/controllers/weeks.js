@@ -37,7 +37,7 @@ export const getBabyStateController = async (req, res, next) => {
   const babyState = await getBabyState(currentWeek);
   res.json({
     status: 200,
-    message: `Successfully found mom state info!`,
+    message: `Successfully found baby state info!`,
     data: babyState,
   });
 };

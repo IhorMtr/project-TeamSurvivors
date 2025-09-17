@@ -1,0 +1,119 @@
+tags:
+  - Weeks
+summary: Get baby state by week
+operationId: getBabyState
+description: Get baby state by week
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: currentWeek
+    required: true
+    schema:
+      type: integer
+      example: 5
+responses:
+  '200':
+    description: Get baby state
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found baby state!
+            data:
+              $ref: '../../../components/schemas/baby-state.yaml'
+
+  '401':
+    description: Unauthorized error
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: UnauthorizedError
+            data:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example:
+                    - Access token expired
+                    - User not found
+                    - Unauthorized
+                    - Session not found
+                    - Session token expired
+                    - Token is expired or invalid
+
+  '404':
+    description: Not found error
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: NotFoundError
+            data:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example:
+                    - Info not found, please set a valid current pregnancy week
+
+  '500':
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: InternalServerError
+            data:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example: Something went wrong

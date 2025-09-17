@@ -1,0 +1,60 @@
+type: object
+required:
+  - _id
+  - weekNumber
+  - feelings
+  - comfortTips
+properties:
+  _id:
+    description: 'Document id'
+    type: string
+    example: 6895cb58a5c677999ed2aefe
+  weekNumber:
+    description: 'Week number'
+    type: integer
+    example: 6
+  feelings:
+    description: "Mother's feelings and sensations"
+    type: object
+    required:
+      - states
+      - sensationDescr
+    properties:
+      _id:
+        description: 'Feelings subdocument id'
+        type: string
+        example: 68ca89a0048001853eeaba31
+      states:
+        description: 'Array of feelings/symptoms at current week'
+        type: array
+        items:
+          type: string
+        example:
+          - 'Сильна втома'
+          - 'Загострення нюху'
+          - 'Харчові дивацтва'
+      sensationDescr:
+        description: 'Description of sensations'
+        type: string
+        example: 'Втома може бути всеохоплюючою. Аромат кави, який ви обожнювали, тепер може викликати огиду...'
+  comfortTips:
+    description: 'List of comfort tips'
+    type: array
+    items:
+      type: object
+      required:
+        - category
+        - tip
+      properties:
+        _id:
+          description: 'Comfort tip id'
+          type: string
+          example: 68ca89a0048001853eeaba32
+        category:
+          description: 'Category of tip'
+          type: string
+          example: 'Харчування'
+        tip:
+          description: 'Practical advice for comfort'
+          type: string
+          example: 'Прислухайтеся до свого організму. Якщо вам хочеться чогось конкретного (і це безпечно), дозвольте собі це.'
