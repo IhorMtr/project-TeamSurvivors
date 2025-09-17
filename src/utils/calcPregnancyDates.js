@@ -22,7 +22,12 @@ export const calculateCurrentWeek = (daysLeft) => {
 export const calculateDemoDaysLeft = () => {
   const today = new Date();
   const result = new Date(today);
-  result.setDate(result.getDate() + 36 * 7);
+  function getRandomNumber() {
+    const numbers = [38, 31, 20];
+    const randomIndex = Math.floor(Math.random() * numbers.length);
+    return numbers[randomIndex];
+  }
+  result.setDate(result.getDate() + getRandomNumber() * 7);
   const year = result.getFullYear();
   const month = String(result.getMonth() + 1).padStart(2, '0');
   const day = String(result.getDate()).padStart(2, '0');
