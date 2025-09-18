@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import pinoHttp from 'pino-http';
+import pino from 'pino';
 import cookieParser from 'cookie-parser';
 import authRouter from './routers/auth.js';
 import tasksRouter from './routers/tasks.js';
@@ -30,6 +32,17 @@ export function setupServer() {
   app.use('/api/api-docs', swaggerDocs());
 
   app.use(cookieParser());
+
+  app.use(
+    pinoHttp({
+      logger: pino({
+        transport: {
+          target: 'pino-pretty',
+          options: { colorize: true },
+        },
+      }),
+    }),
+  );
 
   app.use('/api/auth', authRouter);
   app.use('/api/users', usersRouter);

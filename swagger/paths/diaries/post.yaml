@@ -1,0 +1,69 @@
+tags:
+  - Diaries
+summary: Create diary entries of the authenticated user
+operationId: createEntries
+description: Create an entry with payload matching Joi validation schema
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - title
+          - description
+          - date
+          - emotions
+        properties:
+          title:
+            type: string
+            description: The title of the diary entry
+            minLength: 1
+            maxLength: 64
+            example: 'My first diary entry'
+          description:
+            type: string
+            description: The detailed content of the diary
+            minLength: 1
+            maxLength: 1000
+            example: 'Today I felt very happy because...'
+          date:
+            type: string
+            format: date
+            description: The date of the diary entry in 'YYYY-MM-DD' format
+            example: '2025-09-18'
+          emotions:
+            type: array
+            description: Array of emotion IDs related to this diary entry
+            items:
+              type: string
+              format: objectId
+              example: '64fa3b2f8f8c2d0012345678'
+            minItems: 1
+            maxItems: 12
+responses:
+  '201':
+    description: Diary entry successfully created
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Diary entry successfully created!'
+            data:
+              $ref: '../../components/schemas/diary.yaml'
+  '400':
+    description: Bad request. Validation failed or entrytId is not a valid MongoDB ObjectId.
+  '401':
+    $ref: '../../components/responses/401.yaml'

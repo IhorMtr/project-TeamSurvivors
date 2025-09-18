@@ -9,6 +9,8 @@ info:
 tags:
   - name: Weeks
     description: Getting baby and mom info by date
+  - name: Diaries
+    description: Operations related to diary entries, including create, read, update, and delet
 servers:
   - url: http://localhost:3000
   - url: https://project-teamsurvivors.onrender.com
@@ -25,6 +27,19 @@ paths:
   /api/weeks/mom-state/{currentWeek}:
     get:
       $ref: ../swagger/paths/week/mom-state/get.yaml
+
+  /api/diaries:
+    get:
+      $ref: ../swagger/paths/diaries/get.yaml
+    post:
+      $ref: ../swagger/paths/diaries/post.yaml
+  /{entryId}:
+    get:
+      $ref: ../swagger/paths/diaries/{id}/get.yaml
+    patch:
+      $ref: ../swagger/paths/diaries/{id}/patch.yaml
+    delete:
+      $ref: ../swagger/paths/diaries/{id}/delete.yaml
 components:
   securitySchemes:
     bearerAuth:

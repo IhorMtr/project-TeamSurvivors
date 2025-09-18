@@ -1,0 +1,116 @@
+tags:
+  - Diaries
+summary: Update a diary entry by ID
+operationId: updateDiaryEntry
+description: Update an existing diary entry. Only the owner of the entry can update it. Payload must match validation rules.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: entryId
+    required: true
+    description: The MongoDB ObjectId of the diary entry
+    schema:
+      type: string
+      format: objectId
+      example: '64fa3b2f8f8c2d0012345678'
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+            description: The title of the diary entry
+            minLength: 1
+            maxLength: 64
+            example: 'Updated diary title'
+          description:
+            type: string
+            description: The detailed content of the diary
+            minLength: 1
+            maxLength: 1000
+            example: 'Updated content of the diary entry.'
+          date:
+            type: string
+            format: date
+            description: The date of the diary entry in 'YYYY-MM-DD' format
+            example: '2025-09-18'
+          emotions:
+            type: array
+            description: Array of emotion IDs related to this diary entry
+            items:
+              type: string
+              format: objectId
+              example: '64fa3b2f8f8c2d0012345678'
+            minItems: 1
+            maxItems: 12
+responses:
+  '200':
+    description: Successfully updated entry
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully updated entry!'
+            data:
+              $ref: '../../../components/schemas/diary.yaml'
+  '400':
+    description: Bad Request - validation failed
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: 'Validation error'
+            data:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: string
+                    example: 'Title must be at least 1 character long'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    description: Entry not found or no permission to update
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: 'Entry not found or no permission to update'
+            data:
+              type: object
+              properties: {}
