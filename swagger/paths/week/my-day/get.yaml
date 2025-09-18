@@ -57,14 +57,7 @@ responses:
               properties:
                 message:
                   type: string
-                  example:
-                    - 'Access token expired'
-                    - 'User not found'
-                    - 'Unauthorized'
-                    - 'Session not found'
-                    - 'Session token expired'
-                    - 'Token is expired or invalid'
-
+                  example: 'Unauthorized'
   '404':
     description: Not found error
     content:
