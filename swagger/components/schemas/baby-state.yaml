@@ -1,0 +1,33 @@
+type: object
+required:
+  - _id
+  - weekNumber
+  - analogy
+  - image
+  - babyDevelopment
+  - interestingFact
+properties:
+  _id:
+    description: 'Document id'
+    type: string
+    example: 65e4decdd286b30065d54af9
+  weekNumber:
+    description: 'Week number'
+    type: integer
+    example: 29
+  analogy:
+    description: 'Analogy of baby at current week'
+    type: string
+    example: 'Яблуко'
+  image:
+    description: 'Image of baby analogy'
+    type: string
+    example: 'https://ftp.goit.study/img/lehlehka/6895ce04a5c677999ed2af41'
+  babyDevelopment:
+    description: 'Describe baby developement'
+    type: string
+    example: "Кістковий мозок повністю взяв на себе функцію кровотворення. Голова дитини росте, щоб вмістити мозок, що стрімко розвивається. М'язи та легені продовжують дозрівати. Наднирники виробляють гормони, які стимулюють вироблення молока у матері."
+  interestingFact:
+    description: 'Interesting fact about baby'
+    type: string
+    example: 'Дитина вже чує звуки: ваше серцебиття, бурчання в животі, ваш голос. Розмовляйте з нею!'
