@@ -16,16 +16,11 @@ export const updateUserData = async (userId, payload) => {
 };
 
 export const updateUserPhoto = async (userId, photoUrl) => {
-  if (photoUrl) {
-    payload.photo = photoUrl;
-  }
+  if (!photoUrl) return null;
   const updatedUser = await UserCollection.findByIdAndUpdate(
     userId,
     { photo: photoUrl },
-    {
-      new: true,
-      runValidators: true,
-    },
+    { new: true, runValidators: true },
   );
   return updatedUser;
 };

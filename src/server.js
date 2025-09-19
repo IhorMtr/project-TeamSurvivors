@@ -12,7 +12,7 @@ import weeksRouter from './routers/weeks.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
-import { allowedOrigins } from './constants/index.js';
+import { allowedOrigins, UPLOAD_DIR } from './constants/index.js';
 
 dotenv.config();
 
@@ -53,6 +53,7 @@ export function setupServer() {
   app.use(notFoundHandler);
 
   app.use(errorHandler);
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

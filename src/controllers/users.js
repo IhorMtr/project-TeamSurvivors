@@ -1,10 +1,12 @@
 import createHttpError from 'http-errors';
-import { UserCollection } from '../db/models/user.js';
 import {
   getUserById,
   updateUserData,
   updateUserPhoto,
 } from '../services/users.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { CLOUDINARY } from '../constants/index.js';
 
 export const getUserDataController = async (req, res, next) => {
   try {
@@ -15,7 +17,7 @@ export const getUserDataController = async (req, res, next) => {
     }
     res.status(200).json({
       status: 200,
-      message: 'Successfully got a user!',
+      message: 'Successfully found a user!',
       data: user,
     });
   } catch (err) {
@@ -54,23 +56,31 @@ export const updateUserDataController = async (req, res, next) => {
 
 export const updateUserPhotoController = async (req, res, next) => {
   try {
-    if (!req.file) {
+    const photo = req.file;
+    if (!photo) {
       return res.status(400).json({
         status: 400,
         message: 'No photo uploaded',
       });
     }
 
-    const updatedUser = await updateUserPhoto(req.user._id, req.file.path);
+    let photoUrl;
+    if (getEnvVar(CLOUDINARY.ENABLE_CLOUDINARY) === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
 
-    if (!updatedUser) {
+    const result = await updateUserPhoto(req.user._id, { photo: photoUrl });
+
+    if (!result) {
       throw createHttpError(404, 'User not found');
     }
 
     res.status(200).json({
       status: 200,
       message: 'Successfully updated user photo!',
-      data: updatedUser,
+      data: result.user,
     });
   } catch (err) {
     next(err);

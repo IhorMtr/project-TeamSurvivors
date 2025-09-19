@@ -12,3 +12,10 @@ export const ONE_WEEK = new Date(NOW.getTime() + 7 * 24 * 60 * 60 * 1000);
 export const FORTY_WEEKS = new Date(
   NOW.getTime() + 40 * 7 * 24 * 60 * 60 * 1000,
 );
+
+export const CLOUDINARY = {
+  CLOUD_NAME: 'CLOUDINARY_NAME',
+  API_KEY: 'CLOUDINARY_API_KEY',
+  API_SECRET: 'CLOUDINARY_API_SECRET',
+  ENABLE_CLOUDINARY: 'ENABLE_CLOUDINARY',
+};
