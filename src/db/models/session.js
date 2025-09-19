@@ -1,4 +1,4 @@
-import { model, Schema } from 'moongoose';
+import { model, Schema } from 'mongoose';
 
 const sessionsSchema = new Schema(
     {

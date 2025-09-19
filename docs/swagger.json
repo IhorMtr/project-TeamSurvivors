@@ -21,6 +21,10 @@
     {
       "name": "Weeks",
       "description": "Getting baby and mom info by date"
+    },
+    {
+      "name": "Diaries",
+      "description": "Operations related to diary entries, including create, read, update, and delet"
     }
   ],
   "paths": {
@@ -78,41 +82,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 401
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "UnauthorizedError"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "message"
-                      ],
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Unauthorized"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "description": "Not found error",
@@ -362,41 +332,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 401
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "UnauthorizedError"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "message"
-                      ],
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Unauthorized"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "description": "Not found error",
@@ -531,41 +467,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 401
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "UnauthorizedError"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "message"
-                      ],
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Unauthorized"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "description": "Not found error",
@@ -637,6 +539,527 @@
                           "example": "Something went wrong"
                         }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/diaries": {
+      "get": {
+        "tags": [
+          "Diaries"
+        ],
+        "summary": "Get all diary entries of the authenticated user",
+        "operationId": "getEntries",
+        "description": "Returns a list of all diary entries that belong to the currently authenticated user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successfully found entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found entries!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/diary"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Diaries"
+        ],
+        "summary": "Create diary entries of the authenticated user",
+        "operationId": "createEntries",
+        "description": "Create an entry with payload matching Joi validation schema",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "description",
+                  "date",
+                  "emotions"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "The title of the diary entry",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "example": "My first diary entry"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "The detailed content of the diary",
+                    "minLength": 1,
+                    "maxLength": 1000,
+                    "example": "Today I felt very happy because..."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "The date of the diary entry in 'YYYY-MM-DD' format",
+                    "example": "2025-09-18"
+                  },
+                  "emotions": {
+                    "type": "array",
+                    "description": "Array of emotion IDs related to this diary entry",
+                    "items": {
+                      "type": "string",
+                      "format": "objectId",
+                      "example": "64fa3b2f8f8c2d0012345678"
+                    },
+                    "minItems": 1,
+                    "maxItems": 12
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Diary entry successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Diary entry successfully created!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/diary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Validation failed or entrytId is not a valid MongoDB ObjectId."
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/{entryId}": {
+      "get": {
+        "tags": [
+          "Diaries"
+        ],
+        "summary": "Get a diary entry by ID",
+        "operationId": "getDiaryById",
+        "description": "Returns a single diary entry by its ID. The entry must belong to the currently authenticated user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "entryId",
+            "required": true,
+            "description": "The MongoDB ObjectId of the diary entry",
+            "schema": {
+              "type": "string",
+              "format": "objectId",
+              "example": "64fa3b2f8f8c2d0012345678"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found entry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found entry with id 64fa3b2f8f8c2d0012345678!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/diary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - entryId is not a valid MongoDB ObjectId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "EntryId must be a valid MongoDB ObjectId"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Entry not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Entry not found"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Diaries"
+        ],
+        "summary": "Update a diary entry by ID",
+        "operationId": "updateDiaryEntry",
+        "description": "Update an existing diary entry. Only the owner of the entry can update it. Payload must match validation rules.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "entryId",
+            "required": true,
+            "description": "The MongoDB ObjectId of the diary entry",
+            "schema": {
+              "type": "string",
+              "format": "objectId",
+              "example": "64fa3b2f8f8c2d0012345678"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "The title of the diary entry",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "example": "Updated diary title"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "The detailed content of the diary",
+                    "minLength": 1,
+                    "maxLength": 1000,
+                    "example": "Updated content of the diary entry."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "The date of the diary entry in 'YYYY-MM-DD' format",
+                    "example": "2025-09-18"
+                  },
+                  "emotions": {
+                    "type": "array",
+                    "description": "Array of emotion IDs related to this diary entry",
+                    "items": {
+                      "type": "string",
+                      "format": "objectId",
+                      "example": "64fa3b2f8f8c2d0012345678"
+                    },
+                    "minItems": 1,
+                    "maxItems": 12
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated entry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated entry!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/diary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Validation error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "errors": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "Title must be at least 1 character long"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Entry not found or no permission to update",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Entry not found or no permission to update"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Diaries"
+        ],
+        "summary": "Delete a diary entry by ID",
+        "operationId": "deleteDiaryEntry",
+        "description": "Delete a diary entry by its ID. Only the owner of the entry can delete it.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "entryId",
+            "required": true,
+            "description": "The MongoDB ObjectId of the diary entry to delete",
+            "schema": {
+              "type": "string",
+              "format": "objectId",
+              "example": "64fa3b2f8f8c2d0012345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted entry (No Content)"
+          },
+          "400": {
+            "description": "Bad Request - entryId is not a valid MongoDB ObjectId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "EntryId must be a valid MongoDB ObjectId"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Entry not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Entry not found"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
                     }
                   }
                 }
@@ -845,6 +1268,93 @@
                   "description": "Practical advice for comfort",
                   "type": "string",
                   "example": "Прислухайтеся до свого організму. Якщо вам хочеться чогось конкретного (і це безпечно), дозвольте собі це."
+                }
+              }
+            }
+          }
+        }
+      },
+      "diary": {
+        "type": "object",
+        "required": [
+          "title",
+          "description",
+          "date",
+          "emotions"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the diary entry",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "My first diary entry"
+          },
+          "description": {
+            "type": "string",
+            "description": "The detailed content of the diary",
+            "minLength": 1,
+            "maxLength": 1000,
+            "example": "Today I felt very happy because..."
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "The date of the diary entry in 'YYYY-MM-DD' format",
+            "example": "2025-09-18"
+          },
+          "emotions": {
+            "type": "array",
+            "description": "Array of emotion IDs related to this diary entry",
+            "items": {
+              "type": "string",
+              "format": "objectId",
+              "example": "64fa3b2f8f8c2d0012345678"
+            },
+            "minItems": 1,
+            "maxItems": 12
+          },
+          "userId": {
+            "description": "ID of the user who created the entry (usually from JWT)",
+            "type": "string",
+            "readOnly": true,
+            "example": "65e4decdd286b30065d54af9"
+          }
+        }
+      }
+    },
+    "responses": {
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "UnauthorizedError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Access token expired"
+                    }
+                  }
                 }
               }
             }
