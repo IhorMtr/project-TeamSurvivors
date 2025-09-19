@@ -1,0 +1,88 @@
+tags:
+  - Weeks
+summary: Get mom state by week
+operationId: getMomState
+description: Get mom state by week
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: currentWeek
+    required: true
+    schema:
+      type: integer
+      example: 5
+responses:
+  '200':
+    description: Get mom state
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found mom state!
+            data:
+              $ref: '../../../components/schemas/mom-state.yaml'
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    description: Not found error
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: NotFoundError
+            data:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example:
+                    - Info not found, please set a valid current pregnancy week
+
+  '500':
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: InternalServerError
+            data:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example: Something went wrong

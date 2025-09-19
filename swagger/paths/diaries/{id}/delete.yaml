@@ -1,0 +1,61 @@
+tags:
+  - Diaries
+summary: Delete a diary entry by ID
+operationId: deleteDiaryEntry
+description: Delete a diary entry by its ID. Only the owner of the entry can delete it.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: entryId
+    required: true
+    description: The MongoDB ObjectId of the diary entry to delete
+    schema:
+      type: string
+      format: objectId
+      example: '64fa3b2f8f8c2d0012345678'
+responses:
+  '204':
+    description: Successfully deleted entry (No Content)
+  '400':
+    description: Bad Request - entryId is not a valid MongoDB ObjectId
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: 'EntryId must be a valid MongoDB ObjectId'
+            data:
+              type: object
+              properties: {}
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    description: Entry not found
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: 'Entry not found'
+            data:
+              type: object
+              properties: {}

@@ -1,0 +1,57 @@
+type: object
+required:
+  - _id
+  - daysLeftToBirth
+  - weekNumber
+  - babySize
+  - babyWeight
+  - image
+  - babyActivity
+  - babyDevelopment
+  - momDailyTips
+properties:
+  _id:
+    description: "Contact's id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  daysLeftToBirth:
+    description: 'Days left to birth date'
+    type: integer
+    example: 94
+  weekNumber:
+    description: 'Week number'
+    type: integer
+    example: 29
+  babySize:
+    description: 'Baby size'
+    type: number
+    example: 38.6
+  babyWeight:
+    description: 'Baby weight'
+    type: number
+    example: 1150
+  image:
+    description: 'Image of baby analogy'
+    type: string
+    example: 'https://ftp.goit.study/img/lehlehka/6895ce04a5c677999ed2af41'
+  babyActivity:
+    description: "Describe baby's activity"
+    type: string
+    example: "Місця в матці стає менше, тому рухи дитини стають менш розмашистими, але більш сильними. Ви можете відчути п'яту або лікоть, що випирає."
+  babyDevelopment:
+    description: 'Describe baby developement'
+    type: string
+    example: "Кістковий мозок повністю взяв на себе функцію кровотворення. Голова дитини росте, щоб вмістити мозок, що стрімко розвивається. М'язи та легені продовжують дозрівати. Наднирники виробляють гормони, які стимулюють вироблення молока у матері."
+  momDailyTips:
+    description: 'Mother daily tips'
+    type: array
+    items:
+      type: string
+    example:
+      - 'Слідкуйте за рухами дитини. Якщо ви помітили, що їхня кількість або інтенсивність значно зменшилася, зверніться до лікаря.'
+      - "Може з'явитися свербіж шкіри на животі через її розтягнення. Використовуйте зволожуючі креми та олійки."
+      - 'Запори можуть стати проблемою. Їжте більше клітковини (овочі, фрукти, цільні злаки) і пийте достатньо води.'
+      - "Почніть думати про ім'я для дитини, якщо ви ще не визначилися. Складіть список варіантів."
+      - 'Якщо у вас є старші діти, почніть готувати їх до появи братика чи сестрички.'
+      - 'Практикуйте дихальні вправи. Глибоке дихання насичує кров киснем і заспокоює.'
+      - 'Не соромтеся просити про допомогу, якщо вам важко впоратися з домашніми справами.'

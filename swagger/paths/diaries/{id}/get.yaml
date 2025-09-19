@@ -1,0 +1,76 @@
+tags:
+  - Diaries
+summary: Get a diary entry by ID
+operationId: getDiaryById
+description: Returns a single diary entry by its ID. The entry must belong to the currently authenticated user.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: entryId
+    required: true
+    description: The MongoDB ObjectId of the diary entry
+    schema:
+      type: string
+      format: objectId
+      example: '64fa3b2f8f8c2d0012345678'
+responses:
+  '200':
+    description: Successfully found entry
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully found entry with id 64fa3b2f8f8c2d0012345678!'
+            data:
+              $ref: ../../../components/schemas/diary.yaml
+  '400':
+    description: Bad Request - entryId is not a valid MongoDB ObjectId
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: 'EntryId must be a valid MongoDB ObjectId'
+            data:
+              type: object
+              properties: {}
+  '404':
+    description: Entry not found
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: 'Entry not found'
+            data:
+              type: object
+              properties: {}
