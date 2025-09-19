@@ -5,8 +5,14 @@ const userSchema = new Schema(
         name: { type: String, required: true },
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
+        gender: { type: String, enum: ['boy', 'girl', null], default: null },
+    
+        dueDate: { type: String, default: null }
     },
-    { timestamps: true, visionKey: false },
+    {
+        timestamps: true,
+        visionKey: false
+    },
     
 );
 userSchema.methods.toJSON = function () {

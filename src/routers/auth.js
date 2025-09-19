@@ -5,21 +5,22 @@ import { registerUserController } from '../controllers/auth.js';
 import { loginUserSchema } from '../validation/auth.js';
 import { loginUserController } from '../controllers/auth.js';
 import { logoutUserController } from '../controllers/auth.js';
-import { refreshUserSessionController } from '../controllers/auth.js';
+import { refreshUsersSessionController } from '../controllers/auth.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { validateBody } from '../middlewares/validateBody.js';
 
 
 const router = Router();
 export default router;
 router.post(
     '/register',
-    // validateBody(registerUserSchema),
+    validateBody(registerUserSchema),
     ctrlWrapper(registerUserController),
 );
 
 router.post(
     '/login',
-    // validateBody(loginUserSchema),
+    validateBody(loginUserSchema),
     ctrlWrapper(loginUserController),
 );
 
@@ -32,5 +33,5 @@ router.post(
 router.post(
     '/refresh',
     authenticate,
-    ctrlWrapper(refreshUserSessionController)
+    ctrlWrapper(refreshUsersSessionController)
 );

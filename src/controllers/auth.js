@@ -1,7 +1,6 @@
 import { registerUser } from '../services/auth.js';
 import { loginUser } from '../services/auth.js';
 import {THIRTY_DAYS} from '../constants/index.js';
-import { on } from 'nodemailer/lib/xoauth2/index.js';
 import { logoutUser } from '../services/auth.js';
 import { refreshUsersSession } from '../services/auth.js';
 

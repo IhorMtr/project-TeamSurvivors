@@ -1,0 +1,68 @@
+tags:
+  - Auth
+summary: Register new user
+operationId: registerUser
+description: "Create a new user account."
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            type: string
+            maxLength: 32
+            example: "John Doe"
+          email:
+            type: string
+            format: email
+            maxLength: 64
+            example: "johndoe@example.com"
+          password:
+            type: string
+            minLength: 8
+            maxLength: 128
+            example: "MySecret123"
+          gender:
+            type: string
+            enum: [boy, girl, null]
+            nullable: true
+            example: "boy"
+          dueDate:
+            type: string
+            format: date
+            nullable: true
+            example: "2025-12-31"
+responses:
+  "201":
+    description: User created successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: "User has been created successfully!"
+            data:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: "64fa8b7f2f1a2c0012345678"
+                name:
+                  type: string
+                  example: "John Doe"
+                email:
