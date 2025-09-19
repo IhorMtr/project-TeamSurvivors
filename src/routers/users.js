@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
   getUserDataController,
   updateUserDataController,
@@ -11,19 +10,19 @@ import { upload } from '../middlewares/multer.js';
 
 const router = Router();
 
-router.get('/me', ctrlWrapper(getUserDataController));
+router.get('/me', getUserDataController);
 
 router.patch(
   '/me',
 
   validateBody(updateUserSchema),
-  ctrlWrapper(updateUserDataController),
+  updateUserDataController,
 );
 router.patch(
   '/me/photo',
 
   upload.single('photo'),
-  ctrlWrapper(updateUserPhotoController),
+  updateUserPhotoController,
 );
 
 export default router;

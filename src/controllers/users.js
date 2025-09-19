@@ -7,6 +7,7 @@ import {
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { CLOUDINARY } from '../constants/index.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
 
 export const getUserDataController = async (req, res, next) => {
   try {
@@ -71,16 +72,18 @@ export const updateUserPhotoController = async (req, res, next) => {
       photoUrl = await saveFileToUploadDir(photo);
     }
 
-    const result = await updateUserPhoto(req.user._id, { photo: photoUrl });
+    const updatedUser = await updateUserPhoto(req.user._id, {
+      photo: photoUrl,
+    });
 
-    if (!result) {
+    if (!updatedUser) {
       throw createHttpError(404, 'User not found');
     }
 
     res.status(200).json({
       status: 200,
       message: 'Successfully updated user photo!',
-      data: result.user,
+      data: updatedUser,
     });
   } catch (err) {
     next(err);

@@ -10,7 +10,9 @@ tags:
   - name: Weeks
     description: Getting baby and mom info by date
   - name: Diaries
-    description: Operations related to diary entries, including create, read, update, and delet
+    description: Operations related to diary entries, including create, read, update, and delete
+  - name: Users
+    description: Getting and updating user data
 servers:
   - url: http://localhost:3000
   - url: https://project-teamsurvivors.onrender.com
