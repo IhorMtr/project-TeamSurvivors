@@ -1,0 +1,86 @@
+tags:
+  - Auth
+summary: Register new user
+operationId: registerUser
+description: 'Create a new user account.'
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            type: string
+            maxLength: 32
+            example: 'John Doe'
+          email:
+            type: string
+            format: email
+            maxLength: 64
+            example: 'johndoe@example.com'
+          password:
+            type: string
+            minLength: 8
+            maxLength: 128
+            example: 'MySecret123'
+          gender:
+            type: [string, 'null']
+            enum: [boy, girl, null]
+            example: 'boy'
+          dueDate:
+            type: [string, 'null']
+            format: date
+            example: '2025-12-31'
+responses:
+  '201':
+    description: User created successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'User has been created successfully!'
+            data:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: '64fa8b7f2f1a2c0012345678'
+                name:
+                  type: string
+                  example: 'John Doe'
+                email:
+                  type: string
+                  example: 'example@gmail.com'
+                gender:
+                  type: [string, 'null']
+                  enum: [boy, girl, null]
+                  example: 'boy'
+                dueDate:
+                  type: [string, 'null']
+                  format: date
+                  example: '2025-12-31'
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: '2025-09-20T12:34:56.789Z'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  example: '2025-09-20T12:40:00.123Z'
+  '409':
+    $ref: ../../../components/responses/409.yaml
