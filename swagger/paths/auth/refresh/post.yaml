@@ -2,11 +2,11 @@ tags:
   - Auth
 summary: Refresh access token
 operationId: refreshUserSession
-description: "Refresh access token using refresh token (requires Authorization header)."
+description: 'Refresh access token using refresh token (requires Authorization header).'
 security:
   - bearerAuth: []
 responses:
-  "200":
+  '200':
     description: Session refreshed successfully
     content:
       application/json:
@@ -18,7 +18,9 @@ responses:
               example: 200
             message:
               type: string
-              example: "Successfully refreshed a session!"
+              example: 'Successfully refreshed a session!'
             token:
               type: string
-              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+  '401':
+    $ref: ../../../components/responses/401.yaml

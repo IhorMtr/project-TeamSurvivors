@@ -2,11 +2,11 @@ tags:
   - Auth
 summary: Logout user
 operationId: logoutUser
-description: "Invalidate the current session (requires Authorization header)."
+description: 'Invalidate the current session (requires Authorization header).'
 security:
   - bearerAuth: []
 responses:
-  "200":
+  '200':
     description: Logout successful
     content:
       application/json:
@@ -18,4 +18,6 @@ responses:
               example: 200
             message:
               type: string
-              example: "Successfully logged out!"
+              example: 'Successfully logged out!'
+  '401':
+    $ref: ../../../components/responses/401.yaml
