@@ -28,14 +28,6 @@ requestBody:
             minLength: 8
             maxLength: 128
             example: 'MySecret123'
-          gender:
-            type: [string, 'null']
-            enum: [boy, girl, null]
-            example: 'boy'
-          dueDate:
-            type: [string, 'null']
-            format: date
-            example: '2025-12-31'
 responses:
   '201':
     description: User created successfully
@@ -69,11 +61,11 @@ responses:
                 gender:
                   type: [string, 'null']
                   enum: [boy, girl, null]
-                  example: 'boy'
+                  example: null
                 dueDate:
                   type: [string, 'null']
                   format: date
-                  example: '2025-12-31'
+                  example: null
                 createdAt:
                   type: string
                   format: date-time
