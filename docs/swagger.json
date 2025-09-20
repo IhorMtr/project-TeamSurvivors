@@ -25,6 +25,10 @@
     {
       "name": "Diaries",
       "description": "Operations related to diary entries, including create, read, update, and delete"
+    },
+    {
+    "name": "Tasks",
+    "description": "Operations related to tasks including create, read, and update"
     }
   ],
   "paths": {
@@ -277,15 +281,158 @@
           }
         }
       }
+    },
+    "/api/tasks": {
+  "get": {
+    "tags": ["Tasks"],
+    "summary": "Get all tasks of the authenticated user",
+    "operationId": "getTasks",
+    "description": "Returns a list of all tasks that belong to the currently authenticated user.",
+    "security": [{"bearerAuth": []}],
+    "responses": {
+      "200": {
+        "description": "Successfully fetched tasks",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["status","message","data"],
+              "properties": {
+                "status": {"type": "integer", "example": 200},
+                "message": {"type": "string", "example": "Successfully fetched tasks!"},
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/task"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {"description": "Unauthorized"}
     }
   },
-  "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+  "post": {
+    "tags": ["Tasks"],
+    "summary": "Create a new task for the authenticated user",
+    "operationId": "createTask",
+    "description": "Create a task. The payload must follow validation rules.",
+    "security": [{"bearerAuth": []}],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": ["title","description"],
+            "properties": {
+              "title": {"type": "string","minLength":1,"maxLength":64,"example":"Finish API documentation"},
+              "description": {"type": "string","minLength":1,"maxLength":1000,"example":"Write Swagger docs for tasks API"},
+              "dueDate": {"type": "string","format":"date","example":"2025-09-25"},
+              "isDone": {"type": "boolean","example": false}
+            }
+          }
+        }
       }
+    },
+    "responses": {
+      "201": {
+        "description": "Task successfully created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required":["status","message","data"],
+              "properties":{
+                "status":{"type":"integer","example":201},
+                "message":{"type":"string","example":"Task successfully created!"},
+                "data":{"$ref":"#/components/schemas/task"}
+              }
+            }
+          }
+        }
+      },
+      "400":{"description":"Bad request. Validation failed."},
+      "401":{"description":"Unauthorized"}
     }
   }
+},
+"/api/tasks/{taskId}": {
+  "patch": {
+    "tags": ["Tasks"],
+    "summary": "Update a task's completion status by ID",
+    "operationId": "updateTaskStatus",
+    "description": "Update the `isDone` status of a task. Only the owner of the task can update it.",
+    "security":[{"bearerAuth":[]}],
+    "parameters":[
+      {
+        "in":"path",
+        "name":"taskId",
+        "required":true,
+        "schema":{"type":"string","pattern":"^[a-fA-F0-9]{24}$"},
+        "description":"The MongoDB ObjectId of the task"
+      }
+    ],
+    "requestBody":{
+      "required":true,
+      "content":{
+        "application/json":{
+          "schema":{
+            "type":"object",
+            "required":["isDone"],
+            "properties":{
+              "isDone":{"type":"boolean","example":true}
+            }
+          }
+        }
+      }
+    },
+    "responses":{
+      "200":{
+        "description":"Task status successfully updated",
+        "content":{
+          "application/json":{
+            "schema":{
+              "type":"object",
+              "required":["status","message","data"],
+              "properties":{
+                "status":{"type":"integer","example":200},
+                "message":{"type":"string","example":"Task status successfully updated!"},
+                "data":{"$ref":"#/components/schemas/task"}
+              }
+            }
+          }
+        }
+      },
+      "400":{"description":"Bad request. Validation failed."},
+      "401":{"description":"Unauthorized"},
+      "404":{"description":"Task not found or no permission to update"}
+    }
+  }
+}
+
+  },
+ "components": {
+  "schemas": {
+    "task": {
+      "type": "object",
+      "required":["_id","title","description","owner","isDone","createdAt","updatedAt"],
+      "properties":{
+        "_id":{"type":"string","pattern":"^[a-fA-F0-9]{24}$","example":"64fa3b2f8f8c2d0012345678"},
+        "title":{"type":"string","minLength":1,"maxLength":64,"example":"Finish API documentation"},
+        "description":{"type":"string","minLength":1,"maxLength":1000,"example":"Write Swagger docs for tasks API"},
+        "owner":{"type":"string","pattern":"^[a-fA-F0-9]{24}$","example":"64fa3b2f8f8c2d0012345678"},
+        "isDone":{"type":"boolean","example":false},
+        "dueDate":{"type":"string","format":"date","example":"2025-09-25"},
+        "createdAt":{"type":"string","format":"date-time","example":"2025-09-18T12:34:56.789Z"},
+        "updatedAt":{"type":"string","format":"date-time","example":"2025-09-19T15:00:00.000Z"}
+      }
+    }
+  },
+  "securitySchemes":{
+    "bearerAuth":{"type":"http","scheme":"bearer","bearerFormat":"JWT"}
+  }
+}
 }

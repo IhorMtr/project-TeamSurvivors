@@ -1,0 +1,40 @@
+tags:
+  - Tasks
+summary: Update a task's completion status by ID
+operationId: updateTaskStatus
+description: Update the `isDone` status of a task.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: taskId
+    required: true
+    description: The MongoDB ObjectId of the task
+    schema:
+      type: string
+      example: '64fa3b2f8f8c2d0012345678'
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - isDone
+        properties:
+          isDone:
+            type: boolean
+            example: true
+responses:
+  '200':
+    description: Task status successfully updated
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/task.yaml'
+  '400':
+    description: Bad request
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    description: Task not found
