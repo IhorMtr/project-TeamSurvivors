@@ -6,12 +6,13 @@ import {
   getMyDayController,
   getMyDayDemoController,
 } from '../controllers/weeks.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
 
 router.get('/my-day-demo', ctrlWrapper(getMyDayDemoController));
 
-// router.use(authenticate); потрібно додати аутентифікацію коли буде готова, щоб захистити наступні маршрути
+router.use(authenticate);
 
 router.get('/my-day/:estimateBirthDate', ctrlWrapper(getMyDayController));
 router.get('/mom-state/:currentWeek', ctrlWrapper(getMomStateController));

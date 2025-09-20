@@ -1,0 +1,32 @@
+type: object
+required:
+  - _id
+  - name
+  - email
+properties:
+  _id:
+    type: string
+    description: 'User ID'
+    example: '65ca67e7ae7f10c88b598384'
+  name:
+    type: string
+    description: "User's name"
+    example: 'Kimi Ant'
+  email:
+    type: string
+    description: "User's email"
+    example: 'kimia@example.com'
+  gender:
+    type: string
+    enum: ['boy', 'girl', '']
+    description: 'Gender: boy, girl, or null'
+    example: 'girl'
+  dueDate:
+    type: string
+    format: date
+    description: 'Expected date (YYYY-MM-DD)'
+    example: '2025-12-01'
+  photo:
+    type: string
+    description: 'Avatar URL'
+    example: 'https://res.cloudinary.com/demo/image/upload/photo.jpg'

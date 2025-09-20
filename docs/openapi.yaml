@@ -13,6 +13,8 @@ tags:
     description: Operations related to diary entries, including create, read, update, and delete
   - name: Tasks
     description: Operations related to tasks including create, read, and update
+  - name: Users
+    description: Getting and updating user data
 servers:
   - url: http://localhost:3000
   - url: https://project-teamsurvivors.onrender.com
@@ -66,6 +68,17 @@ paths:
   /api/auth/refresh:
     post:
       $ref: ../swagger/paths/auth/refresh/post.yaml
+
+  /api/me:
+    get:
+      $ref: ../swagger/paths/me/get.yaml
+    patch:
+      $ref: ../swagger/paths/me/patch.yaml
+
+  /api/me/photo:
+    patch:
+      $ref: ../swagger/paths/me/photo/patch.yaml
+
 components:
   securitySchemes:
     bearerAuth:
