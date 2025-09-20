@@ -1,0 +1,38 @@
+type: object
+required:
+  - _id
+  - name
+  - owner
+  - date
+  - isDone
+  - createdAt
+  - updatedAt
+properties:
+  _id:
+    type: string
+    format: objectId
+    example: '64fa3b2f8f8c2d0012345678'
+  name:
+    type: string
+    minLength: 1
+    maxLength: 96
+    example: 'My first task'
+  date:
+    type: string
+    format: date
+    example: '2025-09-25'
+  isDone:
+    type: boolean
+    example: false
+  owner:
+    type: string
+    format: objectId
+    example: '64fa3b2f8f8c2d0012345678'
+  createdAt:
+    type: string
+    format: date-time
+    example: '2025-09-20T13:43:54.666Z'
+  updatedAt:
+    type: string
+    format: date-time
+    example: '2025-09-20T13:43:54.666Z'
