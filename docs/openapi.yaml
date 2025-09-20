@@ -10,10 +10,12 @@ tags:
   - name: Weeks
     description: Getting baby and mom info by date
   - name: Diaries
-    description: Operations related to diary entries, including create, read, update, and delet
+    description: Operations related to diary entries, including create, read, update, and delete
 servers:
   - url: http://localhost:3000
   - url: https://project-teamsurvivors.onrender.com
+security:
+  - bearerAuth: []
 paths:
   /api/weeks/my-day/{estimateBirthDate}:
     get:
@@ -33,15 +35,29 @@ paths:
       $ref: ../swagger/paths/diaries/get.yaml
     post:
       $ref: ../swagger/paths/diaries/post.yaml
-  /{entryId}:
+  /api/diaries/{entryId}:
     get:
       $ref: ../swagger/paths/diaries/{id}/get.yaml
     patch:
       $ref: ../swagger/paths/diaries/{id}/patch.yaml
     delete:
       $ref: ../swagger/paths/diaries/{id}/delete.yaml
+
+  /api/auth/register:
+    post:
+      $ref: ../swagger/paths/auth/register/post.yaml
+  /api/auth/login:
+    post:
+      $ref: ../swagger/paths/auth/login/post.yaml
+  /api/auth/logout:
+    post:
+      $ref: ../swagger/paths/auth/logout/post.yaml
+  /api/auth/refresh:
+    post:
+      $ref: ../swagger/paths/auth/refresh/post.yaml
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+      bearerFormat: JWT
