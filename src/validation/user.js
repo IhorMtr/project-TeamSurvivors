@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { FORTY_WEEKS, ONE_WEEK } from '../constants/index.js';
 
 export const updateUserSchema = Joi.object({
   name: Joi.string().min(1).max(32).messages({
@@ -24,7 +25,7 @@ export const updateUserSchema = Joi.object({
     .pattern(/^\d{4}-\d{2}-\d{2}$/)
     .custom((value, helpers) => {
       const date = new Date(value);
-      if (date < oneWeek || date > fortyWeeks) {
+      if (date < ONE_WEEK || date > FORTY_WEEKS) {
         return helpers.message(
           'Due date must be between 1 and 40 weeks from today',
         );

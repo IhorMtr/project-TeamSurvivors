@@ -8,6 +8,7 @@ import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { CLOUDINARY } from '../constants/index.js';
 import { getEnvVar } from '../utils/getEnvVar.js';
+import fs from 'fs/promises';
 
 export const getUserDataController = async (req, res, next) => {
   try {
@@ -72,9 +73,13 @@ export const updateUserPhotoController = async (req, res, next) => {
       photoUrl = await saveFileToUploadDir(photo);
     }
 
-    const updatedUser = await updateUserPhoto(req.user._id, {
-      photo: photoUrl,
-    });
+    if (photo.path) {
+      await fs.unlink(photo.path).catch((err) => {
+        console.error('Failed to delete temp file:', err.message);
+      });
+    }
+
+    const updatedUser = await updateUserPhoto(req.user._id, photoUrl);
 
     if (!updatedUser) {
       throw createHttpError(404, 'User not found');

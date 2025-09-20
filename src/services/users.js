@@ -1,12 +1,12 @@
-import { UserCollection } from '../db/models/user.js';
+import { UsersCollection } from '../db/models/user.js';
 
 export const getUserById = async (userId) => {
-  const user = await UserCollection.findById(userId);
+  const user = await UsersCollection.findById(userId);
   return user;
 };
 
 export const updateUserData = async (userId, payload) => {
-  const updatedUser = await UserCollection.findByIdAndUpdate(userId, payload, {
+  const updatedUser = await UsersCollection.findByIdAndUpdate(userId, payload, {
     new: true,
     runValidators: true,
   });
@@ -17,7 +17,7 @@ export const updateUserData = async (userId, payload) => {
 
 export const updateUserPhoto = async (userId, photoUrl) => {
   if (!photoUrl) return null;
-  const updatedUser = await UserCollection.findByIdAndUpdate(
+  const updatedUser = await UsersCollection.findByIdAndUpdate(
     userId,
     { photo: photoUrl },
     { new: true, runValidators: true },
