@@ -37,10 +37,12 @@ export const loginUser = async (userData) => {
     userId: user._id,
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    accessTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
     refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
   });
 };
+
+// accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES)
 
 export const logoutUser = async (sessionId) => {
   await SessionsCollection.deleteOne({ _id: sessionId });
@@ -53,10 +55,12 @@ const createSession = () => {
   return {
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    accessTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
     refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
   };
 };
+
+// accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES)
 
 export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   const session = await SessionsCollection.findOne({
