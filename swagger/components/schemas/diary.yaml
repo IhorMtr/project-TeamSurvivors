@@ -1,22 +1,31 @@
 type: object
 required:
+  - _id
   - title
   - description
   - date
   - emotions
+  - userId
+  - createdAt
+  - updatedAt
 properties:
+  _id:
+    type: string
+    format: objectId
+    description: Unique identifier of the diary entry
+    example: 68d022fd9e30cfab9d8b5034
   title:
     type: string
     description: The title of the diary entry
     minLength: 1
     maxLength: 64
-    example: 'My first diary entry'
+    example: test
   description:
     type: string
     description: The detailed content of the diary
     minLength: 1
     maxLength: 1000
-    example: 'Today I felt very happy because...'
+    example: test
   date:
     type: string
     format: date
@@ -24,15 +33,36 @@ properties:
     example: '2025-09-18'
   emotions:
     type: array
-    description: Array of emotion IDs related to this diary entry
-    items:
-      type: string
-      format: objectId
-      example: '64fa3b2f8f8c2d0012345678'
+    description: Array of emotions related to this diary entry
     minItems: 1
     maxItems: 12
+    items:
+      type: object
+      required:
+        - _id
+        - title
+      properties:
+        _id:
+          type: string
+          format: objectId
+          description: Unique identifier of the emotion
+          example: 6895bd86a5c677999ed2ae14
+        title:
+          type: string
+          description: Emotion title
+          example: Апатія
   userId:
-    description: 'ID of the user who created the entry (usually from JWT)'
     type: string
-    readOnly: true
-    example: '65e4decdd286b30065d54af9'
+    format: objectId
+    description: ID of the user who created the entry
+    example: 68ce75b72810719a8b27842c
+  createdAt:
+    type: string
+    format: date-time
+    description: Timestamp of diary entry creation
+    example: '2025-09-21T16:08:29.021Z'
+  updatedAt:
+    type: string
+    format: date-time
+    description: Timestamp of last diary entry update
+    example: '2025-09-21T16:08:29.021Z'

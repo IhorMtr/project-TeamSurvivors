@@ -16,4 +16,4 @@ const emotionSchema = new Schema(
   },
 );
 
-export const Emotion = model('emotions', emotionSchema);
+export const EmotionsCollection = model('Emotion', emotionSchema);

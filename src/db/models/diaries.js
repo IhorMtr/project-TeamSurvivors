@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-export const diarySchema = new Schema(
+const diarySchema = new Schema(
   {
     title: { type: String, required: true, minlength: 1, maxlength: 64 },
 
@@ -17,15 +17,7 @@ export const diarySchema = new Schema(
       match: /^\d{4}-\d{2}-\d{2}$/,
     },
 
-    emotions: {
-      type: [Schema.Types.ObjectId],
-      ref: 'emotions',
-      required: true,
-      validate: [
-        (arr) => arr.length >= 1 && arr.length <= 12,
-        'Emotions must have between 1 and 12 items',
-      ],
-    },
+    emotions: [{ type: Schema.Types.ObjectId, ref: 'Emotion', required: true }],
 
     userId: { type: Schema.Types.ObjectId, ref: 'user', required: true },
   },
@@ -35,4 +27,4 @@ export const diarySchema = new Schema(
   },
 );
 
-export const Diary = model('diaries', diarySchema);
+export const DiaryCollection = model('Diary', diarySchema);
