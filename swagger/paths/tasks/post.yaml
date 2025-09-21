@@ -1,0 +1,40 @@
+tags:
+  - Tasks
+summary: Create a new task
+operationId: createTask
+description: Create a task. Must include `name` and `date`.
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - date
+        properties:
+          name:
+            type: string
+            minLength: 1
+            maxLength: 96
+            example: 'My first task'
+          date:
+            type: string
+            format: date
+            example: '2025-09-25'
+          isDone:
+            type: boolean
+            example: false
+responses:
+  '201':
+    description: Task successfully created
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/task.yaml'
+  '400':
+    description: Bad request
+  '401':
+    $ref: '../../components/responses/401.yaml'

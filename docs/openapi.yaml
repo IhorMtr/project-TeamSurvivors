@@ -11,6 +11,8 @@ tags:
     description: Getting baby and mom info by date
   - name: Diaries
     description: Operations related to diary entries, including create, read, update, and delete
+  - name: Tasks
+    description: Operations related to tasks including create, read, and update
   - name: Users
     description: Getting and updating user data
 servers:
@@ -44,6 +46,15 @@ paths:
       $ref: ../swagger/paths/diaries/{id}/patch.yaml
     delete:
       $ref: ../swagger/paths/diaries/{id}/delete.yaml
+
+  /api/tasks:
+    get:
+      $ref: ../swagger/paths/tasks/get.yaml
+    post:
+      $ref: ../swagger/paths/tasks/post.yaml
+  /api/tasks/{taskId}:
+    patch:
+      $ref: ../swagger/paths/tasks/{id}/patch.yaml
 
   /api/auth/register:
     post:
