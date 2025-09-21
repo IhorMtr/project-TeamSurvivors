@@ -20,9 +20,9 @@ router.post(
 
 router.get('/', s.getAllEntriesDiaryController);
 
-router.get('/:entryId', isValidId, s.getEntryByIdController);
+router.get('/:entryId', isValidId('entryId'), s.getEntryByIdController);
 
-router.delete('/:entryId', isValidId, s.deleteEntryByIdController);
+router.delete('/:entryId', isValidId('entryId'), s.deleteEntryByIdController);
 
 router.patch(
   '/:entryId',
