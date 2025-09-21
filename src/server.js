@@ -13,6 +13,7 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
 import { allowedOrigins, UPLOAD_DIR } from './constants/index.js';
+import { EmotionsCollection } from './db/models/emotionsSchema.js';
 
 dotenv.config();
 
