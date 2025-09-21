@@ -52,7 +52,7 @@ paths:
       $ref: ../swagger/paths/tasks/get.yaml
     post:
       $ref: ../swagger/paths/tasks/post.yaml
-  /api/diaries/{entryId}:
+  /api/tasks/{taskId}:
     patch:
       $ref: ../swagger/paths/tasks/{id}/patch.yaml
 
