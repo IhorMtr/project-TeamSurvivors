@@ -17,6 +17,11 @@
       "url": "https://project-teamsurvivors.onrender.com"
     }
   ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "tags": [
     {
       "name": "Weeks",
@@ -27,11 +32,1236 @@
       "description": "Operations related to diary entries, including create, read, update, and delete"
     },
     {
-    "name": "Tasks",
-    "description": "Operations related to tasks including create, read, and update"
+      "name": "Tasks",
+      "description": "Operations related to tasks including create, read, and update"
+    },
+    {
+      "name": "Users",
+      "description": "Getting and updating user data"
     }
   ],
   "paths": {
+    "/api/weeks/my-day/{estimateBirthDate}": {
+      "get": {
+        "tags": [
+          "Weeks"
+        ],
+        "summary": "Get my day by estimate birth date",
+        "operationId": "getMyDay",
+        "description": "Get my day by estimate birth date",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "estimateBirthDate",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2026-01-15"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get my day by estimate birth date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found my day info!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/my-day"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "NotFoundError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": [
+                            "Info not found, enter valid estimate date"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "InternalServerError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Something went wrong"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/weeks/my-day-demo": {
+      "get": {
+        "tags": [
+          "Weeks"
+        ],
+        "summary": "Get my day demo",
+        "operationId": "getMyDayDemo",
+        "description": "Get my day demo",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Get my day demo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found my day info!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/my-day"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid query/state)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "BadRequest"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Invalid demo parameters"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "InternalServerError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Something went wrong"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/weeks/baby-state/{currentWeek}": {
+      "get": {
+        "tags": [
+          "Weeks"
+        ],
+        "summary": "Get baby state by week",
+        "operationId": "getBabyState",
+        "description": "Get baby state by week",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "currentWeek",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get baby state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found baby state!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/baby-state"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "NotFoundError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": [
+                            "Info not found, please set a valid current pregnancy week"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "InternalServerError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Something went wrong"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/weeks/mom-state/{currentWeek}": {
+      "get": {
+        "tags": [
+          "Weeks"
+        ],
+        "summary": "Get mom state by week",
+        "operationId": "getMomState",
+        "description": "Get mom state by week",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "currentWeek",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get mom state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found mom state!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/mom-state"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "NotFoundError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": [
+                            "Info not found, please set a valid current pregnancy week"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "InternalServerError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Something went wrong"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/diaries": {
+      "get": {
+        "tags": [
+          "Diaries"
+        ],
+        "summary": "Get all diary entries of the authenticated user",
+        "operationId": "getEntries",
+        "description": "Returns a list of all diary entries that belong to the currently authenticated user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successfully found entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found entries!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/diary"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Diaries"
+        ],
+        "summary": "Create diary entries of the authenticated user",
+        "operationId": "createEntries",
+        "description": "Create an entry with payload matching Joi validation schema",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "description",
+                  "date",
+                  "emotions"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "The title of the diary entry",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "example": "My first diary entry"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "The detailed content of the diary",
+                    "minLength": 1,
+                    "maxLength": 1000,
+                    "example": "Today I felt very happy because..."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "The date of the diary entry in 'YYYY-MM-DD' format",
+                    "example": "2025-09-18"
+                  },
+                  "emotions": {
+                    "type": "array",
+                    "description": "Array of emotion IDs related to this diary entry",
+                    "items": {
+                      "type": "string",
+                      "format": "objectId",
+                      "example": "64fa3b2f8f8c2d0012345678"
+                    },
+                    "minItems": 1,
+                    "maxItems": 12
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Diary entry successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Diary entry successfully created!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/diary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Validation failed or entrytId is not a valid MongoDB ObjectId."
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/diaries/{entryId}": {
+      "get": {
+        "tags": [
+          "Diaries"
+        ],
+        "summary": "Get a diary entry by ID",
+        "operationId": "getDiaryById",
+        "description": "Returns a single diary entry by its ID. The entry must belong to the currently authenticated user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "entryId",
+            "required": true,
+            "description": "The MongoDB ObjectId of the diary entry",
+            "schema": {
+              "type": "string",
+              "format": "objectId",
+              "example": "64fa3b2f8f8c2d0012345678"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found entry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found entry with id 64fa3b2f8f8c2d0012345678!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/diary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - entryId is not a valid MongoDB ObjectId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "EntryId must be a valid MongoDB ObjectId"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Entry not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Entry not found"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Diaries"
+        ],
+        "summary": "Update a diary entry by ID",
+        "operationId": "updateDiaryEntry",
+        "description": "Update an existing diary entry. Only the owner of the entry can update it. Payload must match validation rules.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "entryId",
+            "required": true,
+            "description": "The MongoDB ObjectId of the diary entry",
+            "schema": {
+              "type": "string",
+              "format": "objectId",
+              "example": "64fa3b2f8f8c2d0012345678"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "The title of the diary entry",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "example": "Updated diary title"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "The detailed content of the diary",
+                    "minLength": 1,
+                    "maxLength": 1000,
+                    "example": "Updated content of the diary entry."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "The date of the diary entry in 'YYYY-MM-DD' format",
+                    "example": "2025-09-18"
+                  },
+                  "emotions": {
+                    "type": "array",
+                    "description": "Array of emotion IDs related to this diary entry",
+                    "items": {
+                      "type": "string",
+                      "format": "objectId",
+                      "example": "64fa3b2f8f8c2d0012345678"
+                    },
+                    "minItems": 1,
+                    "maxItems": 12
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated entry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated entry!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/diary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Validation error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "errors": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "Title must be at least 1 character long"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Entry not found or no permission to update",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Entry not found or no permission to update"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Diaries"
+        ],
+        "summary": "Delete a diary entry by ID",
+        "operationId": "deleteDiaryEntry",
+        "description": "Delete a diary entry by its ID. Only the owner of the entry can delete it.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "entryId",
+            "required": true,
+            "description": "The MongoDB ObjectId of the diary entry to delete",
+            "schema": {
+              "type": "string",
+              "format": "objectId",
+              "example": "64fa3b2f8f8c2d0012345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted entry (No Content)"
+          },
+          "400": {
+            "description": "Bad Request - entryId is not a valid MongoDB ObjectId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "EntryId must be a valid MongoDB ObjectId"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Entry not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Entry not found"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Get all tasks of the authenticated user",
+        "operationId": "getTasks",
+        "description": "Returns a list of all tasks for the authenticated user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched tasks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully fetched tasks!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/task"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Create a new task",
+        "operationId": "createTask",
+        "description": "Create a task. Must include `name` and `date`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "date"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 96,
+                    "example": "My first task"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2025-09-25"
+                  },
+                  "isDone": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Task successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/tasks/{taskId}": {
+      "patch": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Update a task's completion status by ID",
+        "operationId": "updateTaskStatus",
+        "description": "Update the `isDone` status of a task.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "description": "The MongoDB ObjectId of the task",
+            "schema": {
+              "type": "string",
+              "example": "64fa3b2f8f8c2d0012345678"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "isDone"
+                ],
+                "properties": {
+                  "isDone": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task status successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Task not found"
+          }
+        }
+      }
+    },
     "/api/auth/register": {
       "post": {
         "tags": [
@@ -68,22 +1298,6 @@
                     "minLength": 8,
                     "maxLength": 128,
                     "example": "MySecret123"
-                  },
-                  "gender": {
-                    "type": "string",
-                    "enum": [
-                      "boy",
-                      "girl",
-                      null
-                    ],
-                    "nullable": true,
-                    "example": "boy"
-                  },
-                  "dueDate": {
-                    "type": "string",
-                    "format": "date",
-                    "nullable": true,
-                    "example": "2025-12-31"
                   }
                 }
               }
@@ -122,13 +1336,49 @@
                           "type": "string",
                           "example": "John Doe"
                         },
-                        "email": null
+                        "email": {
+                          "type": "string",
+                          "example": "example@gmail.com"
+                        },
+                        "gender": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "enum": [
+                            "boy",
+                            "girl",
+                            null
+                          ],
+                          "example": null
+                        },
+                        "dueDate": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "format": "date",
+                          "example": null
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-09-20T12:34:56.789Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-09-20T12:40:00.123Z"
+                        }
                       }
                     }
                   }
                 }
               }
             }
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
           }
         }
       }
@@ -200,6 +1450,43 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Authorization Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "UnauthorizedError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "message"
+                      ],
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Invalid email or password"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -237,6 +1524,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
           }
         }
       }
@@ -278,32 +1568,683 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
           }
         }
       }
     },
-    "/api/tasks": {
-  "get": {
-    "tags": ["Tasks"],
-    "summary": "Get all tasks of the authenticated user",
-    "operationId": "getTasks",
-    "description": "Returns a list of all tasks that belong to the currently authenticated user.",
-    "security": [{"bearerAuth": []}],
+    "/api/me": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get current user",
+        "operationId": "getUser",
+        "description": "Get the currently authenticated user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found a user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update current user",
+        "operationId": "updateUser",
+        "description": "Update the currently authenticated user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "example": "Kimi"
+                  },
+                  "email": {
+                    "type": "string",
+                    "maxLength": 64,
+                    "format": "email",
+                    "example": "kimian@example.com"
+                  },
+                  "gender": {
+                    "type": "string",
+                    "enum": [
+                      "boy",
+                      "girl",
+                      ""
+                    ],
+                    "example": "girl"
+                  },
+                  "dueDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2025-11-01"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated user!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/api/me/photo": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user photo",
+        "operationId": "updateUserPhoto",
+        "description": "Update the authenticated user profile photo",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "photo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Profile photo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated user photo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated user photo!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No photo uploaded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "No photo uploaded"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "my-day": {
+        "type": "object",
+        "required": [
+          "_id",
+          "daysLeftToBirth",
+          "weekNumber",
+          "babySize",
+          "babyWeight",
+          "image",
+          "babyActivity",
+          "babyDevelopment",
+          "momDailyTips"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Contact's id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "daysLeftToBirth": {
+            "description": "Days left to birth date",
+            "type": "integer",
+            "example": 94
+          },
+          "weekNumber": {
+            "description": "Week number",
+            "type": "integer",
+            "example": 29
+          },
+          "babySize": {
+            "description": "Baby size",
+            "type": "number",
+            "example": 38.6
+          },
+          "babyWeight": {
+            "description": "Baby weight",
+            "type": "number",
+            "example": 1150
+          },
+          "image": {
+            "description": "Image of baby analogy",
+            "type": "string",
+            "example": "https://ftp.goit.study/img/lehlehka/6895ce04a5c677999ed2af41"
+          },
+          "babyActivity": {
+            "description": "Describe baby's activity",
+            "type": "string",
+            "example": "Місця в матці стає менше, тому рухи дитини стають менш розмашистими, але більш сильними. Ви можете відчути п'яту або лікоть, що випирає."
+          },
+          "babyDevelopment": {
+            "description": "Describe baby developement",
+            "type": "string",
+            "example": "Кістковий мозок повністю взяв на себе функцію кровотворення. Голова дитини росте, щоб вмістити мозок, що стрімко розвивається. М'язи та легені продовжують дозрівати. Наднирники виробляють гормони, які стимулюють вироблення молока у матері."
+          },
+          "momDailyTips": {
+            "description": "Mother daily tips",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Слідкуйте за рухами дитини. Якщо ви помітили, що їхня кількість або інтенсивність значно зменшилася, зверніться до лікаря.",
+              "Може з'явитися свербіж шкіри на животі через її розтягнення. Використовуйте зволожуючі креми та олійки.",
+              "Запори можуть стати проблемою. Їжте більше клітковини (овочі, фрукти, цільні злаки) і пийте достатньо води.",
+              "Почніть думати про ім'я для дитини, якщо ви ще не визначилися. Складіть список варіантів.",
+              "Якщо у вас є старші діти, почніть готувати їх до появи братика чи сестрички.",
+              "Практикуйте дихальні вправи. Глибоке дихання насичує кров киснем і заспокоює.",
+              "Не соромтеся просити про допомогу, якщо вам важко впоратися з домашніми справами."
+            ]
+          }
+        }
+      },
+      "baby-state": {
+        "type": "object",
+        "required": [
+          "_id",
+          "weekNumber",
+          "analogy",
+          "image",
+          "babyDevelopment",
+          "interestingFact"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Document id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "weekNumber": {
+            "description": "Week number",
+            "type": "integer",
+            "example": 29
+          },
+          "analogy": {
+            "description": "Analogy of baby at current week",
+            "type": "string",
+            "example": "Яблуко"
+          },
+          "image": {
+            "description": "Image of baby analogy",
+            "type": "string",
+            "example": "https://ftp.goit.study/img/lehlehka/6895ce04a5c677999ed2af41"
+          },
+          "babyDevelopment": {
+            "description": "Describe baby developement",
+            "type": "string",
+            "example": "Кістковий мозок повністю взяв на себе функцію кровотворення. Голова дитини росте, щоб вмістити мозок, що стрімко розвивається. М'язи та легені продовжують дозрівати. Наднирники виробляють гормони, які стимулюють вироблення молока у матері."
+          },
+          "interestingFact": {
+            "description": "Interesting fact about baby",
+            "type": "string",
+            "example": "Дитина вже чує звуки: ваше серцебиття, бурчання в животі, ваш голос. Розмовляйте з нею!"
+          }
+        }
+      },
+      "mom-state": {
+        "type": "object",
+        "required": [
+          "_id",
+          "weekNumber",
+          "feelings",
+          "comfortTips"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Document id",
+            "type": "string",
+            "example": "6895cb58a5c677999ed2aefe"
+          },
+          "weekNumber": {
+            "description": "Week number",
+            "type": "integer",
+            "example": 6
+          },
+          "feelings": {
+            "description": "Mother's feelings and sensations",
+            "type": "object",
+            "required": [
+              "states",
+              "sensationDescr"
+            ],
+            "properties": {
+              "_id": {
+                "description": "Feelings subdocument id",
+                "type": "string",
+                "example": "68ca89a0048001853eeaba31"
+              },
+              "states": {
+                "description": "Array of feelings/symptoms at current week",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "Сильна втома",
+                  "Загострення нюху",
+                  "Харчові дивацтва"
+                ]
+              },
+              "sensationDescr": {
+                "description": "Description of sensations",
+                "type": "string",
+                "example": "Втома може бути всеохоплюючою. Аромат кави, який ви обожнювали, тепер може викликати огиду..."
+              }
+            }
+          },
+          "comfortTips": {
+            "description": "List of comfort tips",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "category",
+                "tip"
+              ],
+              "properties": {
+                "_id": {
+                  "description": "Comfort tip id",
+                  "type": "string",
+                  "example": "68ca89a0048001853eeaba32"
+                },
+                "category": {
+                  "description": "Category of tip",
+                  "type": "string",
+                  "example": "Харчування"
+                },
+                "tip": {
+                  "description": "Practical advice for comfort",
+                  "type": "string",
+                  "example": "Прислухайтеся до свого організму. Якщо вам хочеться чогось конкретного (і це безпечно), дозвольте собі це."
+                }
+              }
+            }
+          }
+        }
+      },
+      "diary": {
+        "type": "object",
+        "required": [
+          "_id",
+          "title",
+          "description",
+          "date",
+          "emotions",
+          "userId",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "objectId",
+            "description": "Unique identifier of the diary entry",
+            "example": "68d022fd9e30cfab9d8b5034"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the diary entry",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "test"
+          },
+          "description": {
+            "type": "string",
+            "description": "The detailed content of the diary",
+            "minLength": 1,
+            "maxLength": 1000,
+            "example": "test"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "The date of the diary entry in 'YYYY-MM-DD' format",
+            "example": "2025-09-18"
+          },
+          "emotions": {
+            "type": "array",
+            "description": "Array of emotions related to this diary entry",
+            "minItems": 1,
+            "maxItems": 12,
+            "items": {
+              "type": "object",
+              "required": [
+                "_id",
+                "title"
+              ],
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "format": "objectId",
+                  "description": "Unique identifier of the emotion",
+                  "example": "6895bd86a5c677999ed2ae14"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Emotion title",
+                  "example": "Апатія"
+                }
+              }
+            }
+          },
+          "userId": {
+            "type": "string",
+            "format": "objectId",
+            "description": "ID of the user who created the entry",
+            "example": "68ce75b72810719a8b27842c"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of diary entry creation",
+            "example": "2025-09-21T16:08:29.021Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of last diary entry update",
+            "example": "2025-09-21T16:08:29.021Z"
+          }
+        }
+      },
+      "task": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "owner",
+          "date",
+          "isDone",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "objectId",
+            "example": "64fa3b2f8f8c2d0012345678"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96,
+            "example": "My first task"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "2025-09-25"
+          },
+          "isDone": {
+            "type": "boolean",
+            "example": false
+          },
+          "owner": {
+            "type": "string",
+            "format": "objectId",
+            "example": "64fa3b2f8f8c2d0012345678"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-09-20T13:43:54.666Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-09-20T13:43:54.666Z"
+          }
+        }
+      },
+      "user": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "email"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User ID",
+            "example": "65ca67e7ae7f10c88b598384"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Kimi Ant"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "kimia@example.com"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "boy",
+              "girl",
+              ""
+            ],
+            "description": "Gender: boy, girl, or null",
+            "example": "girl"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Expected date (YYYY-MM-DD)",
+            "example": "2025-12-01"
+          },
+          "photo": {
+            "type": "string",
+            "description": "Avatar URL",
+            "example": "https://res.cloudinary.com/demo/image/upload/photo.jpg"
+          }
+        }
+      }
+    },
     "responses": {
-      "200": {
-        "description": "Successfully fetched tasks",
+      "401": {
+        "description": "Unauthorized error",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status","message","data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
-                "status": {"type": "integer", "example": 200},
-                "message": {"type": "string", "example": "Successfully fetched tasks!"},
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "UnauthorizedError"
+                },
                 "data": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/task"
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Access token expired"
+                    }
                   }
                 }
               }
@@ -311,128 +2252,67 @@
           }
         }
       },
-      "401": {"description": "Unauthorized"}
-    }
-  },
-  "post": {
-    "tags": ["Tasks"],
-    "summary": "Create a new task for the authenticated user",
-    "operationId": "createTask",
-    "description": "Create a task. The payload must follow validation rules.",
-    "security": [{"bearerAuth": []}],
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "required": ["title","description"],
-            "properties": {
-              "title": {"type": "string","minLength":1,"maxLength":64,"example":"Finish API documentation"},
-              "description": {"type": "string","minLength":1,"maxLength":1000,"example":"Write Swagger docs for tasks API"},
-              "dueDate": {"type": "string","format":"date","example":"2025-09-25"},
-              "isDone": {"type": "boolean","example": false}
-            }
-          }
-        }
-      }
-    },
-    "responses": {
-      "201": {
-        "description": "Task successfully created",
+      "404": {
+        "description": "Not Found error",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
-              "required":["status","message","data"],
-              "properties":{
-                "status":{"type":"integer","example":201},
-                "message":{"type":"string","example":"Task successfully created!"},
-                "data":{"$ref":"#/components/schemas/task"}
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "NotFoundError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
               }
             }
           }
         }
       },
-      "400":{"description":"Bad request. Validation failed."},
-      "401":{"description":"Unauthorized"}
-    }
-  }
-},
-"/api/tasks/{taskId}": {
-  "patch": {
-    "tags": ["Tasks"],
-    "summary": "Update a task's completion status by ID",
-    "operationId": "updateTaskStatus",
-    "description": "Update the `isDone` status of a task. Only the owner of the task can update it.",
-    "security":[{"bearerAuth":[]}],
-    "parameters":[
-      {
-        "in":"path",
-        "name":"taskId",
-        "required":true,
-        "schema":{"type":"string","pattern":"^[a-fA-F0-9]{24}$"},
-        "description":"The MongoDB ObjectId of the task"
-      }
-    ],
-    "requestBody":{
-      "required":true,
-      "content":{
-        "application/json":{
-          "schema":{
-            "type":"object",
-            "required":["isDone"],
-            "properties":{
-              "isDone":{"type":"boolean","example":true}
-            }
-          }
-        }
-      }
-    },
-    "responses":{
-      "200":{
-        "description":"Task status successfully updated",
-        "content":{
-          "application/json":{
-            "schema":{
-              "type":"object",
-              "required":["status","message","data"],
-              "properties":{
-                "status":{"type":"integer","example":200},
-                "message":{"type":"string","example":"Task status successfully updated!"},
-                "data":{"$ref":"#/components/schemas/task"}
+      "409": {
+        "description": "Conflict - user already exists",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 409
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User with this email already exists"
+                }
               }
             }
           }
         }
-      },
-      "400":{"description":"Bad request. Validation failed."},
-      "401":{"description":"Unauthorized"},
-      "404":{"description":"Task not found or no permission to update"}
-    }
-  }
-}
-
-  },
- "components": {
-  "schemas": {
-    "task": {
-      "type": "object",
-      "required":["_id","title","description","owner","isDone","createdAt","updatedAt"],
-      "properties":{
-        "_id":{"type":"string","pattern":"^[a-fA-F0-9]{24}$","example":"64fa3b2f8f8c2d0012345678"},
-        "title":{"type":"string","minLength":1,"maxLength":64,"example":"Finish API documentation"},
-        "description":{"type":"string","minLength":1,"maxLength":1000,"example":"Write Swagger docs for tasks API"},
-        "owner":{"type":"string","pattern":"^[a-fA-F0-9]{24}$","example":"64fa3b2f8f8c2d0012345678"},
-        "isDone":{"type":"boolean","example":false},
-        "dueDate":{"type":"string","format":"date","example":"2025-09-25"},
-        "createdAt":{"type":"string","format":"date-time","example":"2025-09-18T12:34:56.789Z"},
-        "updatedAt":{"type":"string","format":"date-time","example":"2025-09-19T15:00:00.000Z"}
       }
     }
-  },
-  "securitySchemes":{
-    "bearerAuth":{"type":"http","scheme":"bearer","bearerFormat":"JWT"}
   }
-}
 }

@@ -69,13 +69,13 @@ paths:
     post:
       $ref: ../swagger/paths/auth/refresh/post.yaml
 
-  /api/me:
+  /api/users/me:
     get:
       $ref: ../swagger/paths/me/get.yaml
     patch:
       $ref: ../swagger/paths/me/patch.yaml
 
-  /api/me/photo:
+  /api/users/me/photo:
     patch:
       $ref: ../swagger/paths/me/photo/patch.yaml
 
