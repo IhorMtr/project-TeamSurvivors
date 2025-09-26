@@ -23,6 +23,6 @@ router.post(
   ctrlWrapper(loginUserController),
 );
 
-router.post('/logout', authenticate, ctrlWrapper(logoutUserController));
+router.post('/logout', ctrlWrapper(logoutUserController));
 
 router.post('/refresh', ctrlWrapper(refreshUsersSessionController));
