@@ -23,7 +23,7 @@ requestBody:
             example: 'kimian@example.com'
           gender:
             type: string
-            enum: ['boy', 'girl', '']
+            enum: ['boy', 'girl', 'unknown']
             example: 'girl'
           dueDate:
             type: string

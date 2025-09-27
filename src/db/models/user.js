@@ -5,7 +5,11 @@ const userSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    gender: { type: String, enum: ['boy', 'girl', null], default: null },
+    gender: {
+      type: String,
+      enum: ['boy', 'girl', 'unknown'],
+      default: null,
+    },
     dueDate: { type: String, default: null },
     photo: { type: String, default: null },
   },

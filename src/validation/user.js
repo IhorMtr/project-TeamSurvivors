@@ -15,8 +15,8 @@ export const updateUserSchema = Joi.object({
     'string.max': 'Email cannot exceed 30 characters',
     'string.email': 'Email must be a valid email address',
   }),
-  gender: Joi.string().valid('boy', 'girl', null).messages({
-    'any.only': 'Gender must be either "boy", "girl", or null',
+  gender: Joi.string().valid('boy', 'girl', 'unknown').allow(null).messages({
+    'any.only': 'Gender must be either "boy", "girl", or unknown',
   }),
   photo: Joi.string().allow(null, '').messages({
     'string.base': 'Photo must be a string',
