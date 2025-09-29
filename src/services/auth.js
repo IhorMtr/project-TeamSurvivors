@@ -7,7 +7,7 @@ import { SessionsCollection } from '../db/models/session.js';
 import {
   getFullNameFromGoogleTokenPayload,
   validateCode,
-} from '../utils/googleOauth2.js';
+} from '../utils/googleoauth2.js';
 
 export const registerUser = async (userData) => {
   const user = await UsersCollection.findOne({ email: userData.email });
@@ -41,12 +41,10 @@ export const loginUser = async (userData) => {
     userId: user._id,
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
+    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
     refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
   });
 };
-
-// accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES)
 
 export const logoutUser = async (sessionId) => {
   await SessionsCollection.deleteOne({ _id: sessionId });
@@ -59,12 +57,10 @@ const createSession = () => {
   return {
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
+    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
     refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
   };
 };
-
-// accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES)
 
 export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   const session = await SessionsCollection.findOne({
