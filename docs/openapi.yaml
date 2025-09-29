@@ -15,6 +15,8 @@ tags:
     description: Operations related to tasks including create, read, and update
   - name: Users
     description: Getting and updating user data
+  - name: Auth
+    description: Authentication (email/password & OAuth)
 servers:
   - url: http://localhost:3000
   - url: https://project-teamsurvivors.onrender.com
@@ -68,6 +70,12 @@ paths:
   /api/auth/refresh:
     post:
       $ref: ../swagger/paths/auth/refresh/post.yaml
+  /api/auth/get-oauth-url:
+    get:
+      $ref: ../swagger/paths/auth/get-oauth-url/get.yaml
+  /api/auth/confirm-oauth:
+    post:
+      $ref: ../swagger/paths/auth/confirm-oauth/post.yaml
 
   /api/users/me:
     get:

@@ -9,8 +9,8 @@ export const allowedOrigins = [
 
 export const NOW = new Date();
 export const ONE_WEEK = new Date(NOW.getTime() + 7 * 24 * 60 * 60 * 1000);
-export const FORTY_WEEKS = new Date(
-  NOW.getTime() + 40 * 7 * 24 * 60 * 60 * 1000,
+export const FORTY_TWO_WEEKS = new Date(
+  NOW.getTime() + 42 * 7 * 24 * 60 * 60 * 1000,
 );
 
 export const CLOUDINARY = {
