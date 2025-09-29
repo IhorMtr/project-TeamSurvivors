@@ -7,7 +7,7 @@ import { SessionsCollection } from '../db/models/session.js';
 import {
   getFullNameFromGoogleTokenPayload,
   validateCode,
-} from '../utils/googleoauth2.js';
+} from '../utils/googleOauth.js';
 
 export const registerUser = async (userData) => {
   const user = await UsersCollection.findOne({ email: userData.email });

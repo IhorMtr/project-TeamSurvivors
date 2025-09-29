@@ -3,7 +3,7 @@ import { loginUser } from '../services/auth.js';
 import { THIRTY_DAYS } from '../constants/index.js';
 import { logoutUser } from '../services/auth.js';
 import { refreshUsersSession } from '../services/auth.js';
-import { generateAuthUrl } from '../utils/googleoauth2.js';
+import { generateAuthUrl } from '../utils/googleOauth.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
